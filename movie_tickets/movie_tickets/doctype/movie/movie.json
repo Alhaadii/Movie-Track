@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-30 15:02:32.572246",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "poaster",
+  "synopsis",
+  "column_break_kdyc",
+  "director",
+  "released_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "poaster",
+   "fieldtype": "Attach Image",
+   "label": "Poaster"
+  },
+  {
+   "fieldname": "synopsis",
+   "fieldtype": "Small Text",
+   "label": "Synopsis"
+  },
+  {
+   "fieldname": "column_break_kdyc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "director",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Director",
+   "reqd": 1
+  },
+  {
+   "fieldname": "released_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Released Date",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-30 16:10:27.448538",
+ "modified_by": "Administrator",
+ "module": "Movie Tickets",
+ "name": "Movie",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title",
+ "track_changes": 1
+}
