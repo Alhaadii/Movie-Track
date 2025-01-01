@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-8">
+  <div class="grid grid-cols-1 mt-4">
     <div
       class="flex justify-center items-center flex-col gap-y-4 md:max-w-lg mx-auto p-8 bg-gray-300 shadow-lg rounded-md lg:max-w-2xl"
     >
@@ -123,13 +123,16 @@
                 @click="selectSeat(row, seat[0])"
                 v-for="seat in seatStructure[row]"
                 class="w-6 h-8 m-2 rounded-[2px]"
-                :class="
+                :class="[
                   seat[1] === 'Available'
                     ? 'bg-blue-300'
                     : seat[1] === 'Selected'
                     ? 'bg-blue-600'
-                    : 'bg-gray-200'
-                "
+                    : 'bg-gray-200',
+                  hasSelectedCorrectNumberOfSeats
+                    ? 'cursor-not-allowed'
+                    : 'cursor-pointer',
+                ]"
               >
               </span>
             </div>
@@ -163,8 +166,25 @@
   </div>
 </template>
 
+<!-- Scripting the Logic -->
+
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
+import { createDocumentResource } from 'frappe-ui'
+
+// interacting with BackEnd
+
+const movieName = ref('qvgmpg7o7f')
+
+const movieResource = createDocumentResource({
+  doctype: 'Movie',
+  name: movieName.value,
+  onSuccess(doc) {
+    console.log(doc)
+  },
+})
+
+// Actions with Client side
 
 function getSeatStructure(alphabets, numbers) {
   const structure = {}
@@ -182,7 +202,7 @@ const seatStructure = reactive(
 )
 
 const today = new Date().toISOString().substr(0, 10)
-const currentStep = ref(1)
+const currentStep = ref(0)
 
 const bookingData = reactive({
   numberOfSeats: 0,
@@ -195,9 +215,16 @@ function setNumberOfSeats(seat) {
 }
 
 function selectSeat(row, number) {
+  if (hasSelectedCorrectNumberOfSeats.value) {
+    return
+  }
   const seat = seatStructure[row].find((seat) => seat[0] === number)
   seat[1] = 'Selected'
 
   bookingData.selctedSeats.push(`${row}${number}`)
 }
+
+const hasSelectedCorrectNumberOfSeats = computed(() => {
+  return bookingData.selctedSeats.length === bookingData.numberOfSeats
+})
 </script>

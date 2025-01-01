@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Movie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="text"], input[type="date"], input[type="file"] {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add a New Movie</h1>
+        <form id="add-movie-form">
+            <input type="text" name="title" placeholder="Title" required />
+            <input type="text" name="director" placeholder="Director" required />
+            <input type="date" name="released_date" required />
+            <input type="file" name="poster" accept="image/*" />
+            <button type="submit">Add Movie</button>
+        </form>
+    </div>
+
+    <script>
+        const baseURL = "http://localhost:8000";
+        const apiKey = "your_api_key";
+        const apiSecret = "your_api_secret";
+
+        const form = document.getElementById("add-movie-form");
+        form.addEventListener("submit", event => {
+            event.preventDefault();
+            const formData = new FormData(form);
+
+            const data = {
+                title: formData.get("title"),
+                director: formData.get("director"),
+                released_date: formData.get("released_date"),
+                poster: formData.get("poster") || null // Optional
+            };
+
+            fetch(`${baseURL}/api/method/movie_api.add_movie`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `token ${apiKey}:${apiSecret}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert("Movie added successfully!");
+                form.reset();
+            })
+            .catch(error => console.error("Error adding movie:", error));
+        });
+    </script>
+</body>
+</html>

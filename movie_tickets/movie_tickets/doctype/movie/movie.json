@@ -6,7 +6,7 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "poaster",
+  "poster",
   "synopsis",
   "column_break_kdyc",
   "director",
@@ -19,11 +19,6 @@
    "in_list_view": 1,
    "label": "Title",
    "reqd": 1
-  },
-  {
-   "fieldname": "poaster",
-   "fieldtype": "Attach Image",
-   "label": "Poaster"
   },
   {
    "fieldname": "synopsis",
@@ -47,11 +42,16 @@
    "in_list_view": 1,
    "label": "Released Date",
    "reqd": 1
+  },
+  {
+   "fieldname": "poster",
+   "fieldtype": "Attach Image",
+   "label": "Poster"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-30 16:10:27.448538",
+ "modified": "2025-01-01 10:19:41.196646",
  "modified_by": "Administrator",
  "module": "Movie Tickets",
  "name": "Movie",
