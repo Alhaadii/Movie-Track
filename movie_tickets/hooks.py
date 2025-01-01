@@ -1,4 +1,13 @@
-app_name = "movie_tickets"
+# ...existing code...
+
+# Whitelisted methods
+whitelisted_methods = [
+    "movie_tickets.api.add_movie",
+    "movie_tickets.api.delete_movie",
+    "movie_tickets.api.get_movies"
+]
+
+# ...existing code...app_name = "movie_tickets"
 app_title = "Movie Tickets"
 app_publisher = "himadwise"
 app_description = "Movie Tickets Booking app with himadwise"
