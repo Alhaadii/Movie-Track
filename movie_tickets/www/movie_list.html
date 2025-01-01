@@ -105,6 +105,39 @@
                     
                 `;
             container.appendChild(div);
+            const deleteButton = document.createElement("button");
+            deleteButton.className = "btn";
+            deleteButton.style.backgroundColor = "#dc3545";
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = () => {
+              fetch(
+                `${baseURL}/api/method/movie_tickets.movie_tickets.doctype.movie.api.movie_api.delete_movie`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ movie_id: movie.name }),
+                }
+              )
+                .then((response) => response.json())
+                .then((result) => {
+                  if (
+                    result.message &&
+                    result.message === "Movie deleted successfully."
+                  ) {
+                    alert("Movie deleted successfully.");
+                    location.reload();
+                  } else {
+                    console.error("Failed to delete movie:", result);
+                    alert("Failed to delete movie");
+                  }
+                })
+                .catch((error) =>
+                  console.error("Error deleting movie:", error)
+                );
+            };
+            div.appendChild(deleteButton);
           });
         })
         .catch((error) => console.error("Error fetching movies:", error));

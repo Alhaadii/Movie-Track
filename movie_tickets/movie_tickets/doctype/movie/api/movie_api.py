@@ -14,19 +14,7 @@ def get_all_movies():
 
 
 @frappe.whitelist()
-def add_movie(title, director, released_date, poster=None):
-    """Create a new movie record."""
-    if frappe.form_dict.get('file'):
-        file = frappe.form_dict.get('file')
-        file_doc = frappe.get_doc({
-            "doctype": "File",
-            "file_name": file.filename,
-            "attached_to_doctype": "Movie",
-            "attached_to_name": title,
-            "content": file.content
-        })
-        file_doc.save()
-        poster = file_doc.file_url
+def add_movie(title, director, released_date, poster_url=None):
     """Create a new movie record."""
     if not title or not director or not released_date:
         frappe.throw("Title, Director, and Released Date are required fields.")
@@ -34,7 +22,7 @@ def add_movie(title, director, released_date, poster=None):
     movie = frappe.get_doc({
         "doctype": "Movie",
         "title": title,
-        "poster": poster,  # Allow null
+        "poster": poster_url,  # Allow null
         "director": director,
         "released_date": released_date
     })
